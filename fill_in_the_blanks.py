@@ -1,4 +1,4 @@
-#fill in the blanks quiz
+# fill in the blanks quiz
 difficulty = ['easy', 'medium', 'hard']
 levels = [('A parabola is the graph of a _____1_____ equation, meaning an '
             'equation of degree 2. A parabola has a _____2_____ if the '
@@ -22,7 +22,7 @@ levels_ans = [['quadratic','minimum','maximum','vertex'],
 
 # Determines if the current word is a blank to be filled. Returns true is word
 # is blank. Returns False is word is not a blank.
-def isBlank(word):
+def is_blank(word):
     if word.find('_____') != -1:
         return True
     return False
@@ -31,12 +31,11 @@ def isBlank(word):
 # enter difficulty again. Runs until correct input is given. Returns number of
 # choosen level. Easy =0, Medium=1, Hard =2.
 def choose_level(user_input):
-    while True:
-        if user_input == 'easy' or user_input == 'medium' or user_input == 'hard':
-            current_level = difficulty.index(user_input)
-            print '\n Welcome to '+ user_input +' mode.'
-            break
-        user_input = raw_input('Your input was invalid. Check your spelling and select either easy, medium or hard. \n')
+    while user_input not in difficulty:
+        user_input = raw_input('Your input was invalid. Check your spelling and'
+                               'select either easy, medium or hard. \n')
+    current_level = difficulty.index(user_input)
+    print '\n Welcome to '+ user_input +' mode.'
     return current_level
 
 # Prints out the question for the level
@@ -55,15 +54,15 @@ def is_correct(user_input, blank_num, answer):
     return True
 
 # Moves user through the test as blanks are answered correctly. Fill blanks when
-# user is correct. 
+# user is correct.
 def test(level, answer):
     index = 0
     blank_num = 1
     for word in level:
-        if isBlank(word) == True:
+        if is_blank(word):
             print_question(level)
             user_input = raw_input('\nWhat should go in blank '+str(blank_num)+'?\n')
-            if is_correct(user_input, blank_num, answer) == True:
+            if is_correct(user_input, blank_num, answer):
                 level[index] = answer[blank_num-1]
                 blank_num += 1
         index += 1
